@@ -1,7 +1,7 @@
 package com.example.android.roomdatabasekotlin
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity() {
         addButton.setOnClickListener {
 //            var list = editText.text.toString()
 //            textView.text = list
+
             val list = MyList(myToDoList = "List")
-                something.myListDao().insertAll(list)
+            something.myListDao().insertAll(list) // <- calling DAO directly on UI thread, instead use MyListDatabaseManager.java
 
         }
     }

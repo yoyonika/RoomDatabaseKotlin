@@ -31,8 +31,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation 'android.arch.persistence.room:rxjava2:1.1.1' // <- RxJava support for Room
     kapt 'android.arch.persistence.room:compiler:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0' // <- RxAndroid required for AndroidSchedulers.java
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
 }
