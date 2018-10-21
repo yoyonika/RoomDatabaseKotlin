@@ -8,6 +8,7 @@ import android.content.Context
 @Database(entities = arrayOf(MyList::class), version = 1)
 abstract class MyListManager : RoomDatabase() {
     abstract fun myListDao(): MyListDao
+    abstract fun myListt():MyListDatabaseManager
 
     companion object {
         private var list: MyListManager? = null
