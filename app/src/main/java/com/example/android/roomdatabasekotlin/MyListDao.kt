@@ -7,7 +7,7 @@ import io.reactivex.Maybe
 interface MyListDao {
 
     @Query("SELECT * FROM MyList")
-    fun getAll(): Maybe<MyList>
+    fun getAll(): List<MyList> //create getsingle and get list passing id as a field
 
     @Insert
     fun insertAll(myList: MyList)

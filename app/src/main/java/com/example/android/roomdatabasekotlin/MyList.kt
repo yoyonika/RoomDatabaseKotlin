@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "myList")
 data class MyList(
-        @PrimaryKey(autoGenerate = true) // <- cannot use (autoGenerate = true) on String primary keys
+        @PrimaryKey(autoGenerate = true)
         var id: Int,
         @ColumnInfo(name = "myToDoList")
         var myToDoList: String
