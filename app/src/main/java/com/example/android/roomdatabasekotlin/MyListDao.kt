@@ -17,4 +17,8 @@ interface MyListDao {
 
     @Delete
     fun deleteAll(myList: MyList)
+
+//    @Query("SELECT * FROM myList WHERE listId = :id")
+//    fun getSingle(): List<MyList>
+
 }

@@ -3,6 +3,7 @@ package com.example.android.roomdatabasekotlin
 import android.arch.persistence.room.Room
 import android.content.Context
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -43,5 +44,13 @@ class MyListDatabaseManager(context: Context) {
                 .subscribeOn(Schedulers.newThread())
 
     }
+
+    fun selectAll(): Single<List<MyList>> {
+        return Single.fromCallable { list!!.myListDao().getAll() }
+                .subscribeOn(Schedulers.newThread())
+    }
+
+//    fun getSingle(singleList: List<MyList>) {
+    //}
 
 }
