@@ -9,10 +9,17 @@ import io.reactivex.schedulers.Schedulers
 
 class MyListDatabaseManager(context: Context) {
 
+    private lateinit var list: MyListManager
+    
     init {
-        getList(context);
+        getList(context)
+        list = Room.databaseBuilder(
+                context,
+                MyListManager::class.java,
+                "myToDoList")
+                .build()
     }
-
+    
     companion object {
         private var list: MyListManager? = null
         fun getList(context: Context): MyListManager {
@@ -28,25 +35,26 @@ class MyListDatabaseManager(context: Context) {
     }
 
     fun insertAll(myList: MyList): Completable {
-        return Completable.fromAction { list?.myListDao()?.insertAll(myList) }
+        return Completable.fromAction { list.myListDao().insertAll(myList) }
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()) // <- required to have subscribe operations execute on UI thread
 
     }
 
     fun updateAll(myList: MyList): Completable {
-        return Completable.fromAction { list?.myListDao()?.updateAll(myList) }
+        return Completable.fromAction { list.myListDao().updateAll(myList) }
                 .subscribeOn(Schedulers.newThread())
     }
 
     fun deleteAll(myList: MyList): Completable {
-        return Completable.fromAction { list?.myListDao()?.deleteAll(myList) }
+        return Completable.fromAction { list.myListDao().deleteAll(myList) }
                 .subscribeOn(Schedulers.newThread())
 
     }
 
     fun selectAll(): Single<List<MyList>> {
-        return Single.fromCallable { list!!.myListDao().getAll() }
+        return list.myListDao().getAll()
                 .subscribeOn(Schedulers.newThread())
+                .toSingle()
     }
 }
