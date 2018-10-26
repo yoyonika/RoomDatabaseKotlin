@@ -5,11 +5,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.TextView
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.my_list.view.*
 
-class MyListAdapter () : RecyclerView.Adapter<MyListAdapter.MyListViewHolder>(){
+class MyListAdapter : RecyclerView.Adapter<MyListAdapter.MyListViewHolder>(){
 
     private var adapterList:MutableList<MyList> = mutableListOf()
 
@@ -36,10 +37,10 @@ class MyListAdapter () : RecyclerView.Adapter<MyListAdapter.MyListViewHolder>(){
     }
 
 inner class MyListViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
-    private val myListTextvIEW: TextView = itemView.room_textview2
+    private val myListViewItem: TextView = itemView.room_textview2
 
     fun bindViewModel (myList:MyList){
-        myListTextvIEW.text= myList.myToDoList
+        myListViewItem.text= myList.myToDoList
     }
     }
 }
