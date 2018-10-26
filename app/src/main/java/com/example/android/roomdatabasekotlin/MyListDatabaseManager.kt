@@ -49,8 +49,4 @@ class MyListDatabaseManager(context: Context) {
         return Single.fromCallable { list!!.myListDao().getAll() }
                 .subscribeOn(Schedulers.newThread())
     }
-
-//    fun getSingle(singleList: List<MyList>) {
-    //}
-
 }

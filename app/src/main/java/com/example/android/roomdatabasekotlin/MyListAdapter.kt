@@ -1,13 +1,10 @@
 package com.example.android.roomdatabasekotlin
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import android.widget.TextView
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.my_list.view.*
 
 class MyListAdapter : RecyclerView.Adapter<MyListAdapter.MyListViewHolder>(){

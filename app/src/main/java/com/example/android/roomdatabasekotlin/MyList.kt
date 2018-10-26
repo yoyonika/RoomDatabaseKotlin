@@ -7,8 +7,6 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "myList")
 data class MyList(
        @PrimaryKey()
-//        @ColumnInfo (name = "listId")
-//        var id: Int,
         @ColumnInfo(name = "myToDoListColumn")
         var myToDoList: String
 
