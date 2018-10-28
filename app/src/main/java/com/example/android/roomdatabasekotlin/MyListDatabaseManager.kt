@@ -5,12 +5,14 @@ import android.content.Context
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.toSingle
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Callable
 
 class MyListDatabaseManager(context: Context) {
 
     private lateinit var list: MyListManager
-    
+
     init {
         getList(context)
         list = Room.databaseBuilder(
@@ -19,7 +21,7 @@ class MyListDatabaseManager(context: Context) {
                 "myToDoList")
                 .build()
     }
-    
+
     companion object {
         private var list: MyListManager? = null
         fun getList(context: Context): MyListManager {
@@ -34,6 +36,11 @@ class MyListDatabaseManager(context: Context) {
         }
     }
 
+    fun insert(myList: MyList) : Single<Unit>{
+        return Single.fromCallable(Callable {
+            list.myListDao().insertAll(myList)
+        })
+    }
     fun insertAll(myList: MyList): Completable {
         return Completable.fromAction { list.myListDao().insertAll(myList) }
                 .subscribeOn(Schedulers.newThread())

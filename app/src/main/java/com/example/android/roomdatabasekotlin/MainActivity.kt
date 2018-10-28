@@ -3,10 +3,8 @@ package com.example.android.roomdatabasekotlin
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.EditText
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,29 +30,21 @@ class MainActivity : AppCompatActivity() {
 
         something.selectAll()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ list -> adapterMyList.addStuffs(list) })
+                .subscribe({list -> adapterMyList.addStuffs(list)})
 
         addButton.setOnClickListener {
-            val myList = MyList(editText.text.toString())
-            adapterMyList.addStuff(myList)
-            Completable.fromAction { something.insertAll(myList) }
+            var list = editText.text.toString()
+            // textView.text = list
+            adapterMyList.addStuff(MyList(list))
+
+            something.insert(MyList(list))
                     .subscribeOn(Schedulers.io())
-                    .subscribe(
-                            { Log.d("database contents", "saved") },
-                            { it.printStackTrace() }
-                    )
-//
-//            something.selectAll()
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(
-//                            { Log.d("database contents", it.toString()) },
-//                            { it.printStackTrace() }
-//                    )
-//            Observable.fromCallable<Any> { something.updateAll(MyList(myToDoList = list)) }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
+//            Thread({something.insertAll(MyList(myToDoList = list))}).start()
+//            Observable.fromCallable<Any> { something.insertAll(MyList(myToDoList = list)) }
 //                    .subscribeOn(Schedulers.io())
 //                    .subscribe()
-
-
         }
     }
 }
