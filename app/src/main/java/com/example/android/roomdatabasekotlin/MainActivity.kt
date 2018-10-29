@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var something: MyListDatabaseManager
     private lateinit var adapterMyList: MyListAdapter
 
+    //should have everything to do with layout etc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,3 +51,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+//on resume should have all the network calls etc
