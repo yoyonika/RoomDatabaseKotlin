@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         something = MyListDatabaseManager(this)
         adapterMyList = MyListAdapter()
-    }
-
-    override fun onResume() {
-        super.onResume()
         val addButton = findViewById<View>(R.id.add_button)
         val editText = findViewById<EditText>(R.id.edit_text_view)
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
@@ -46,19 +42,11 @@ class MainActivity : AppCompatActivity() {
                     .subscribe()
         }
 
-            delete_button.setOnClickListener {
-                something.delete(MyList((adapterMyList.deleteStuffs().toString())))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe()
-            }
-
+        delete_button.setOnClickListener {
+            something.delete(MyList((adapterMyList.deleteStuffs().toString())))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
+        }
     }
-
-//    private fun saveToList(list: String) {
-//        something.insert(MyList(list))
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe()
-   // }
 }
