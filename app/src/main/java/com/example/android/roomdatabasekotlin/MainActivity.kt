@@ -8,6 +8,7 @@ import android.widget.EditText
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,21 +31,34 @@ class MainActivity : AppCompatActivity() {
 
         something.selectAll()
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe({list -> adapterMyList.addStuffs(list)})
 
+        //OnClickListener
         addButton.setOnClickListener {
-            var list = editText.text.toString()
-            // textView.text = list
+            val list = editText.text.toString()
+            //adds text to the adapter
             adapterMyList.addStuff(MyList(list))
-            Observable.fromCallable<Any> { something.insertAll(MyList(myToDoList = list)) }
+            //inserts to list
+            something.insert(MyList(list))
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
-//
-//            Observable.fromCallable<Any> { something.updateAll(MyList(myToDoList = list)) }
-//                    .subscribeOn(Schedulers.io())
-//                    .subscribe()
-
-
         }
+
+            delete_button.setOnClickListener {
+                something.delete(MyList((adapterMyList.deleteStuffs().toString())))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe()
+            }
+
     }
+
+//    private fun saveToList(list: String) {
+//        something.insert(MyList(list))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe()
+   // }
 }

@@ -1,12 +1,14 @@
 package com.example.android.roomdatabasekotlin
 
 import android.arch.persistence.room.*
+import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface MyListDao {
 
     @Query("SELECT * FROM MyList")
-    fun getAll(): List<MyList>
+    fun getAll(): Maybe<List<MyList>>
 
     @Insert
     fun insertAll(myList: MyList)
@@ -14,7 +16,7 @@ interface MyListDao {
     @Update
     fun updateAll(myList: MyList)
 
-    @Delete
-    fun deleteAll(myList: MyList)
+    @Query ("DELETE FROM MyList")
+    fun deleteAll()
 
 }
