@@ -5,7 +5,6 @@ import android.content.Context
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.toSingle
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Callable
 
@@ -36,11 +35,12 @@ class MyListDatabaseManager(context: Context) {
         }
     }
 
-    fun insert(myList: MyList) : Single<Unit>{
+    fun insert(myList: MyList): Single<Unit> {
         return Single.fromCallable(Callable {
             list.myListDao().insertAll(myList)
         })
     }
+
     fun insertAll(myList: MyList): Completable {
         return Completable.fromAction { list.myListDao().insertAll(myList) }
                 .subscribeOn(Schedulers.newThread())
@@ -53,10 +53,10 @@ class MyListDatabaseManager(context: Context) {
                 .subscribeOn(Schedulers.newThread())
     }
 
-    fun deleteAll(myList: MyList): Completable {
-        return Completable.fromAction { list.myListDao().deleteAll(myList) }
-                .subscribeOn(Schedulers.newThread())
-
+    fun delete(myList: MyList): Single<Unit> {
+        return Single.fromCallable(Callable {
+            list.myListDao().deleteAll()
+        })
     }
 
     fun selectAll(): Single<List<MyList>> {

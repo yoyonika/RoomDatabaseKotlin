@@ -29,8 +29,18 @@ class MyListAdapter : RecyclerView.Adapter<MyListAdapter.MyListViewHolder>(){
         notifyDataSetChanged()
     }
 
+    fun deleteStuff (myList: MyList) {
+        adapterList.remove(myList)
+        notifyDataSetChanged()
+    }
+
     fun addStuffs (collection: List<MyList>){
         adapterList.addAll(collection)
+    }
+
+    fun deleteStuffs (){
+        adapterList.clear()
+        notifyDataSetChanged()
     }
 
 inner class MyListViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){

@@ -16,7 +16,7 @@ interface MyListDao {
     @Update
     fun updateAll(myList: MyList)
 
-    @Delete
-    fun deleteAll(myList: MyList)
+    @Query ("DELETE FROM MyList")
+    fun deleteAll()
 
 }
